@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+#include <unordered_map>
+using namespace std;
+string max_Substring(string str){
+    int i=0;
+    int j=0;
+    unordered_map<char,int> m;
+    int currentlength=0;
+    int maxlength=0;
+    int start_index=-1;
+    while(j<str.length()){
+        char ch=str[j];
+        //checking if it is in hash map 
+        if(m.count(ch) and m[ch]>=i){
+             i=m[ch]+1;
+            currentlength=j-i;
+        }
+         //update
+         m[ch]=j;
+          currentlength++;
+          j++;
+          if(currentlength>maxlength){
+              maxlength=currentlength;
+              start_index=i;
+          }
+
+    }
+    return str.substr(start_index,maxlength);
+   
+
+}
+int main() {
+   string str="abcababdefhi";
+   cout<<max_Substring(str);
+}
